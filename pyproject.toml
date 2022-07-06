@@ -7,14 +7,22 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+IMDBAPI = "^1.0.2"
+
+[tool.poetry.dev-dependencies]
 mypy = "^0.961"
 flake8 = "^4.0.1"
 yapf = "^0.32.0"
 toml = "^0.10.2"
 pytest = "^7.1.2"
-IMDBAPI = "^1.0.2"
 
-[tool.poetry.dev-dependencies]
+[tool.yapf]
+based_on_style = "google"
+spaces_before_comment = 4
+split_before_logical_operator = true
+align_closing_bracket_with_visual_indent = true
+blank_line_before_nested_class_or_def = false
+column_limit = 90
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
