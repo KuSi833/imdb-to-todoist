@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "imdb-to-todoist"
+version = "0.1.0"
+description = "Python script to quickly add a movie from IMDB to todoist as a task."
+authors = ["KuSi833 <kabo.milicic@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+mypy = "^0.961"
+flake8 = "^4.0.1"
+yapf = "^0.32.0"
+toml = "^0.10.2"
+pytest = "^7.1.2"
+IMDBAPI = "^1.0.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
