@@ -1,0 +1,20 @@
+{
+    // Linting
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    // Formatter
+    "python.formatting.provider": "yapf",
+    // Testing Library
+    "python.testing.pytestArgs": ["tests"],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    // Exclude files from sidebar
+    "files.exclude": {
+        "**/__init__.py": true,
+        ".pytest_cache": true,
+    },
+	// Point PYTHONPATH to project root
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
+}
