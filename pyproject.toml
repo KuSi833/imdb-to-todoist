@@ -9,6 +9,7 @@ license = "MIT"
 python = "^3.9"
 IMDBAPI = "^1.0.2"
 requests = "^2.28.1"
+todoist-api-python = "^1.1.1"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.961"

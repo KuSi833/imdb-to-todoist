@@ -10,7 +10,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "attrs"
 version = "21.4.0"
 description = "Classes Without Boilerplate"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -270,6 +270,18 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "todoist-api-python"
+version = "1.1.1"
+description = "Official Python SDK for the Todoist REST API."
+category = "main"
+optional = false
+python-versions = ">=3.8,<4.0"
+
+[package.dependencies]
+attrs = ">=21.2.0,<22.0.0"
+requests = ">=2.26.0,<3.0.0"
+
+[[package]]
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
@@ -325,7 +337,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "ab6a7cf44d8e733e4bf74fb44eaaf4b3f563e9d32c99850665fc271d13156780"
+content-hash = "9ec8dd923ba6a6b5b9412be17753a5f6e1849ca9dd605c3a0562a4a4ae1cfada"
 
 [metadata.files]
 atomicwrites = [
@@ -443,6 +455,10 @@ six = [
 soupsieve = [
     {file = "soupsieve-2.3.2.post1-py3-none-any.whl", hash = "sha256:3b2503d3c7084a42b1ebd08116e5f81aadfaea95863628c80a3b774a11b7c759"},
     {file = "soupsieve-2.3.2.post1.tar.gz", hash = "sha256:fc53893b3da2c33de295667a0e19f078c14bf86544af307354de5fcf12a3f30d"},
+]
+todoist-api-python = [
+    {file = "todoist_api_python-1.1.1-py3-none-any.whl", hash = "sha256:17e70ecf77ae879248f61bc8b8ce9fa2765a57901b78a75d92349143e614f3b5"},
+    {file = "todoist_api_python-1.1.1.tar.gz", hash = "sha256:5080f1b21b17378454ae0b8ceb8c647803fba023526176c8a9bb784508fb8508"},
 ]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
