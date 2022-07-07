@@ -5,7 +5,7 @@
     // Formatter
     "python.formatting.provider": "yapf",
     // Testing Library
-    "python.testing.pytestArgs": ["tests"],
+    // "python.testing.pytestArgs": ["tests"],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     // Exclude files from sidebar
