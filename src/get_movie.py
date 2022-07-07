@@ -1,6 +1,5 @@
 from typing import Any
-import requests
-from config import API_KEY
+from imdb_api import get_movie_from_id, get_search_movie
 
 
 def is_movie_id(s: str) -> bool:
@@ -29,17 +28,11 @@ def generate_link(id: str) -> str:
     return f"https://www.imdb.com/title/{id}"
 
 
-def get_search_movie(title: str) -> Any:
-    response = requests.get(f"https://imdb-api.com/en/API/SearchMovie/{API_KEY}/{title}")
-    return response.json()
-
-
-def get_movie_from_id(id: str) -> Any:
-    return requests.get(f"https://imdb-api.com/en/API/Title/{API_KEY}/{id}").json()
-
-
 def search_movie_by_title(title: str) -> str:
     response = get_search_movie(title)
+    if not response:
+        print(f"Couldn't find movie with title: {title}")
+        exit()
     results = response["results"]
 
     for i, result in enumerate(results):
@@ -50,7 +43,11 @@ def search_movie_by_title(title: str) -> str:
     return results[index]['id']
 
 
-def get_movie(s: str):
+def get_movie(s: str) -> Any:
+    """
+    Accepts a move id, URL or movie title as argument.
+    Returns a dictionary containing information about the movie.
+    """
     if is_movie_id(s):    # given id
         movie_id = s
     elif is_url(s):    # given url
@@ -59,8 +56,3 @@ def get_movie(s: str):
         movie_id = search_movie_by_title(s)
     movie = get_movie_from_id(movie_id)
     print(movie)
-
-
-if __name__ == "__main__":
-    # search_movie("Fantastic Mr. Fox")
-    get_movie("harry potter")
