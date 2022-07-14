@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 import os
 import json
-from src import todoist
-from src import imdb_api
+from imdb_to_todoist import todoist
+from imdb_to_todoist import imdb_api
 from typing import List
 from todoist_api_python.models import Project
 from todoist_api_python.api import TodoistAPI
@@ -13,27 +13,7 @@ class Config:
     IMDB_API_KEY: str
     TODOIST_API_KEY: str
     default_project_id: str
-
-
-# def configure_project():
-#     pass
-
-# def is_configured():
-#     """
-#     Returns true if properly configured.
-#     """
-#     # Check if config file exists
-#     if not os.path.isdir("../data.json"):
-#         return False
-
-#     with open("../data.json", "r") as f:
-#         data = json.load(f)
-#         # Check if required fields are present
-#         required_fields = ['IMDB_API_KEY', 'TODOIST_API_KEY', 'default_project_id']
-#         for field in required_fields:
-#             if not data[field]:
-#                 return False
-
+    
 
 def configure_imdb_api_key() -> str:
     while True:

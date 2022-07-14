@@ -2,7 +2,7 @@ from todoist_api_python.api import TodoistAPI
 from todoist_api_python.models import Project
 from typing import List
 
-from src.get_movie import Movie
+from imdb_to_todoist.imdb import Movie
 
 
 def is_valid_api_key(TODOIST_API_KEY: str) -> bool:

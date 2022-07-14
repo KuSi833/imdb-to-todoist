@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Any
-from src.imdb_api import get_movie_from_id, get_search_movie
+from imdb_to_todoist.imdb_api import get_movie_from_id, get_search_movie
 
 
 def is_movie_id(s: str) -> bool:
