@@ -1,4 +1,4 @@
-from imdb_to_todoist.todoist import is_valid_api_key
+from src.todoist import is_valid_api_key
 
 
 def test_is_valid_api_key():

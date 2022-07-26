@@ -1,4 +1,4 @@
-from imdb_to_todoist.imdb import (get_id_from_url, is_url, is_movie_id, generate_link)
+from src.imdb import (get_id_from_url, is_url, is_movie_id, generate_link)
 
 
 def test_generate_link():
