@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Configuration
-data.json
-test.py
+data.*
+test.*
