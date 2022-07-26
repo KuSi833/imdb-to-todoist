@@ -1,22 +1,21 @@
 import argparse
 
 from src.imdb import ImdbPort
-from src.configure import load_configuration
+from src import configuration
 from src.todoist import TodoistPort
 
 
 def add_task(args):
-    config = load_configuration()
+    config = configuration.load_configuration()
     config.check_if_complete()
     imdb = ImdbPort(config.IMDB_API_KEY)
-    todoist = TodoistPort(config.TODOIST_API_KEY, config.default_project_id)
+    todoist = TodoistPort(config.TODOIST_API_KEY, config.default_project_name)
     movie = imdb.get_movie(args.movie)
     todoist.make_task(movie, labels=args.labels)
 
 
 def configure(args):
-    print("CONFIG")
-    print(args)
+    configuration.configure(args)
 
 
 def main():
@@ -31,8 +30,8 @@ def main():
                                  help="override default project name",
                                  type=str)
     add_task_parser.add_argument("-l",
-                                 "--labels",
-                                 help="override default labels",
+                                 "--label",
+                                 help="override default label",
                                  type=str,
                                  nargs="*")
     add_task_parser.set_defaults(func=add_task)
