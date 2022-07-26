@@ -29,11 +29,12 @@ def add_task(args):
 
     imdb = ImdbPort(config.IMDB_API_KEY)
     todoist = TodoistPort(config.TODOIST_API_KEY)
-    media = imdb.get_movie(args.media)
-    todoist.make_task(media, labels=labels, project_name=project_name)
-    print(
-        f"\nAdded {media.title} to project {project_name} with label(s): {' '.join(labels)}"
-    )
+    for media_name in args.media:
+        media = imdb.get_media(media_name)
+        todoist.make_task(media, labels=labels, project_name=project_name)
+        print(
+            f"\nAdded {media.title} to project {project_name} with label(s): {' '.join(labels)}"
+        )
 
 
 def configure(args):
@@ -52,6 +53,7 @@ def main():
         help="media title / id / url",
         type=str,
         required=True,
+        nargs="*",
     )
     add_task_parser.add_argument("-p",
                                  "--project",

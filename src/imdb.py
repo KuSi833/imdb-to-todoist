@@ -54,7 +54,7 @@ class ImdbPort():
         index = int(input("Select result by typing leading number: ")) - 1
         return results[index]['id']
 
-    def get_movie(self, s: str) -> Movie:
+    def get_media(self, s: str) -> Movie:
         """
         Accepts a move id, URL or movie title as argument.
         Returns a dictionary containing information about the movie.
