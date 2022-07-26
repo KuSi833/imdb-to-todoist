@@ -7,15 +7,7 @@ from typing import List, Optional
 from src.util import get_project_root
 from todoist_api_python.models import Project
 from todoist_api_python.api import TodoistAPI
-
-
-class MissingAttributeException(AttributeError):
-    def __init__(self, missing_attribute: str, *args: object) -> None:
-        super().__init__(*args)
-        self.missing_value = missing_attribute
-
-    def __str__(self) -> str:
-        return f"Missing required attribute: {self.missing_value}"
+from src.exceptions import MissingAttributeException
 
 
 @dataclass
