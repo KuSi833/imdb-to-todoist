@@ -5,6 +5,20 @@ from src.configure import load_configuration
 from src.todoist import TodoistPort
 
 
+def add_task(args):
+    config = load_configuration()
+    config.check_if_complete()
+    imdb = ImdbPort(config.IMDB_API_KEY)
+    todoist = TodoistPort(config.TODOIST_API_KEY, config.default_project_id)
+    movie = imdb.get_movie(args.movie)
+    todoist.make_task(movie, labels=args.labels)
+
+
+def configure(args):
+    print("CONFIG")
+    print(args)
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Takes a movie from IMDB and assigns it as a Todoist task")
@@ -21,6 +35,7 @@ def main():
                                  help="override default labels",
                                  type=str,
                                  nargs="*")
+    add_task_parser.set_defaults(func=add_task)
 
     # Config parser
     config_parser = subparsers.add_parser("config")
@@ -34,14 +49,10 @@ def main():
                                "--label",
                                help="Assign default label name",
                                type=str)
-    args = parser.parse_args()
+    config_parser.set_defaults(func=configure)
 
-    # Set path
-    config = load_configuration()
-    imdb = ImdbPort(config.IMDB_API_KEY)
-    todoist = TodoistPort(config.TODOIST_API_KEY, config.default_project_id)
-    movie = imdb.get_movie(args.movie)
-    todoist.make_task(movie, labels=args.labels)
+    args = parser.parse_args()
+    args.func(args)
 
 
 if __name__ == "__main__":
