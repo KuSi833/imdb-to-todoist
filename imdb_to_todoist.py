@@ -3,15 +3,29 @@ import argparse
 from src.imdb import ImdbPort
 from src import configuration
 from src.todoist import TodoistPort
+from src.exceptions import MissingAttributeException
 
 
 def add_task(args):
     config = configuration.load_configuration()
     config.check_if_complete()
+
+    if args.project:
+        project_name = args.project
+    elif config.default_project_name:
+        project_name = config.default_project_name
+    else:
+        raise MissingAttributeException("Project Name")
+
+    if args.labels:
+        labels = args.labels
+    elif config.default_label_name:
+        labels = config.default_label_name
+
     imdb = ImdbPort(config.IMDB_API_KEY)
-    todoist = TodoistPort(config.TODOIST_API_KEY, config.default_project_name)
+    todoist = TodoistPort(config.TODOIST_API_KEY, project_name)
     movie = imdb.get_movie(args.movie)
-    todoist.make_task(movie, labels=args.labels)
+    todoist.make_task(movie, labels=labels)
 
 
 def configure(args):
@@ -30,8 +44,8 @@ def main():
                                  help="override default project name",
                                  type=str)
     add_task_parser.add_argument("-l",
-                                 "--label",
-                                 help="override default label",
+                                 "--labels",
+                                 help="override default label with given labels",
                                  type=str,
                                  nargs="*")
     add_task_parser.set_defaults(func=add_task)
