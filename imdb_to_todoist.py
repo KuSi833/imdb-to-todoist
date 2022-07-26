@@ -16,8 +16,8 @@ def main():
                                  "--project",
                                  help="override default project name",
                                  type=str)
-    add_task_parser.add_argument("-m",
-                                 "--movie",
+    add_task_parser.add_argument("-l",
+                                 "--labels",
                                  help="override default labels",
                                  type=str,
                                  nargs="*")
@@ -34,13 +34,14 @@ def main():
                                "--label",
                                help="Assign default label name",
                                type=str)
+    args = parser.parse_args()
 
     # Set path
     config = load_configuration()
     imdb = ImdbPort(config.IMDB_API_KEY)
     todoist = TodoistPort(config.TODOIST_API_KEY, config.default_project_id)
-    movie = imdb.get_movie(input("Enter the movie title / id / url: "))
-    todoist.make_task(movie)
+    movie = imdb.get_movie(args.movie)
+    todoist.make_task(movie, labels=args.labels)
 
 
 if __name__ == "__main__":
