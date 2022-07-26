@@ -42,10 +42,12 @@ class ImdbPort():
 
     def search_movie_by_title(self, title: str) -> str:
         response = get_search_movie(title, self.api_key)
-        if not response:
+        if response["errorMessage"]:
+            raise Exception(f"IMDB Exception: {response['errorMessage']}")
+        results = response["results"]
+        if not results:
             print(f"Couldn't find movie with title: {title}")
             exit()
-        results = response["results"]
 
         for i, result in enumerate(results):
             print(
