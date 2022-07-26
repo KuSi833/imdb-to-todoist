@@ -2,7 +2,7 @@ from typing import Optional
 
 
 class MissingAttributeException(AttributeError):
-    def __init__(self, missing_attribute: str, message: Optional[str],
+    def __init__(self, missing_attribute: str, message: Optional[str] = None,
                  *args: object) -> None:
         super().__init__(*args)
         self.message = message

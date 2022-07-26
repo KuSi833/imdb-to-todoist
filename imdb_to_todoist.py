@@ -29,8 +29,11 @@ def add_task(args):
 
     imdb = ImdbPort(config.IMDB_API_KEY)
     todoist = TodoistPort(config.TODOIST_API_KEY)
-    movie = imdb.get_movie(args.movie)
-    todoist.make_task(movie, labels=labels, project_name=project_name)
+    media = imdb.get_movie(args.media)
+    todoist.make_task(media, labels=labels, project_name=project_name)
+    print(
+        f"\nAdded {media.title} to project {project_name} with label(s): {' '.join(labels)}"
+    )
 
 
 def configure(args):
@@ -39,11 +42,17 @@ def configure(args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Takes a movie from IMDB and assigns it as a Todoist task")
+        description="Takes a movie/show from IMDB and assigns it as a Todoist task")
     subparsers = parser.add_subparsers()
     # Add task parser
     add_task_parser = subparsers.add_parser("add")
-    add_task_parser.add_argument("movie", help="movie title / id / url", type=str)
+    add_task_parser.add_argument(
+        "-m",
+        "--media",
+        help="media title / id / url",
+        type=str,
+        required=True,
+    )
     add_task_parser.add_argument("-p",
                                  "--project",
                                  help="override default project name",
