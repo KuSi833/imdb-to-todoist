@@ -17,9 +17,8 @@ def is_valid_api_key(TODOIST_API_KEY: str) -> bool:
 
 
 class TodoistPort():
-    def __init__(self, TODOIST_API_KEY: str, default_project_id: str) -> None:
+    def __init__(self, TODOIST_API_KEY: str) -> None:
         self.todoist = TodoistAPI(TODOIST_API_KEY)
-        self.default_project_id = default_project_id
 
     def get_projects(self) -> Project:
         projects = self.todoist.get_projects()
@@ -44,16 +43,31 @@ class TodoistPort():
         label = self.todoist.add_label(label_name)
         return label.id
 
-    def make_task(self, movie: Movie, labels: List[str]) -> None:
+    def get_project_id(self, project_name: str) -> str:
+        "TODO: Use some kind of cache"
+        projects = self.todoist.get_projects()
+        for project in projects:
+            if project.name == project_name:
+                return project.id
+        print(f"Couldn't find project with name: {project_name}.")
+        ans = parse_bool("Would you like to create it?", default_value=False)
+        if not ans:
+            print("Exiting script.")
+            quit()
+        project = self.todoist.add_project(project_name)
+        return project.id
+
+    def make_task(self, movie: Movie, labels: List[str], project_name: str) -> None:
         content = f"[{movie.title}]({movie.link})"
         description = movie.plot
+        project_id = self.get_project_id(project_name)
         if labels:
             label_ids = [self.get_label_id(label) for label in labels]
             self.todoist.add_task(content=content,
                                   description=description,
-                                  project_id=self.default_project_id,
+                                  project_id=project_id,
                                   label_ids=label_ids)
         else:
             self.todoist.add_task(content=content,
                                   description=description,
-                                  project_id=self.default_project_id)
+                                  project_id=project_id)

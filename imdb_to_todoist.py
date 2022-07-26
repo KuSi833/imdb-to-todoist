@@ -10,22 +10,27 @@ def add_task(args):
     config = configuration.load_configuration()
     config.check_if_complete()
 
+    project_name = None
     if args.project:
         project_name = args.project
     elif config.default_project_name:
         project_name = config.default_project_name
     else:
-        raise MissingAttributeException("Project Name")
+        raise MissingAttributeException(
+            "Project Name",
+            message="Project name must be passed as an argument or a default must be set.",
+        )
 
+    labels = None
     if args.labels:
         labels = args.labels
     elif config.default_label_name:
         labels = config.default_label_name
 
     imdb = ImdbPort(config.IMDB_API_KEY)
-    todoist = TodoistPort(config.TODOIST_API_KEY, project_name)
+    todoist = TodoistPort(config.TODOIST_API_KEY)
     movie = imdb.get_movie(args.movie)
-    todoist.make_task(movie, labels=labels)
+    todoist.make_task(movie, labels=labels, project_name=project_name)
 
 
 def configure(args):

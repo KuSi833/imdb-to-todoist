@@ -5,9 +5,9 @@ from src import todoist
 from src import imdb_api
 from typing import List, Optional
 from src.util import get_project_root
-from todoist_api_python.models import Project
-from todoist_api_python.api import TodoistAPI
 from src.exceptions import MissingAttributeException
+
+CONFIG_FILE_NAME = "data.p"
 
 
 @dataclass
@@ -28,6 +28,9 @@ class Config:
         for key, value in self.__dict__.items():
             s.append(f"{key}: {value}\n")
         return "".join(s)
+
+    def save_to_file(self) -> None:
+        pickle.dump(self, open(get_project_root() / CONFIG_FILE_NAME, "wb"))
 
 
 # def configure_imdb_api_key() -> str:
@@ -59,32 +62,28 @@ def configure(args):
     if args.imdb:
         if imdb_api.is_valid_api_key(args.imdb):
             config.IMDB_API_KEY = args.imdb
-            print("valid IMDB API key entered and saved")
+            print("Valid IMDB API key entered and saved.")
         else:
-            print("invalid IMDB API key entered, skipped")
+            print("Invalid IMDB API key entered, skipped.")
     if args.todoist:
         if todoist.is_valid_api_key(args.todoist):
             config.TODOIST_API_KEY = args.todoist
-            print("valid Todoist API key entered and saved")
+            print("Valid Todoist API key entered and saved.")
         else:
-            print("invalid Todoist API key entered, skipped")
+            print("Invalid Todoist API key entered, skipped.")
     elif args.project:
         config.default_project_name = args.project
         print(f"Default project name assigned to: {config.default_project_name}")
     elif args.label:
         config.default_label_name = args.label
         print(f"Default label name assigned to: {config.default_label_name}")
-
-
-def load_configuration_from_file(file_path: Path) -> Config:
-    return pickle.load(open(file_path, "rb"))
+    config.save_to_file()
 
 
 def load_configuration() -> Config:
-    config_file_name = "data.p"
-    config_path = get_project_root() / config_file_name
-    if not config_path.exists():
+    config_file = get_project_root() / CONFIG_FILE_NAME
+    if not config_file.exists():
         config = Config()
     else:
-        config = load_configuration_from_file(config_path)
+        config = pickle.load(open(config_file, "rb"))
     return config
