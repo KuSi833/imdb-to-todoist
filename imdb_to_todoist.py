@@ -33,7 +33,7 @@ def add_task(args):
         media = imdb.get_media(media_name)
         todoist.make_task(media, labels=labels, project_name=project_name)
         print(
-            f"\nAdded {media.title} to project {project_name} with label(s): {' '.join(labels)}"
+            f"\nAdded {media.title} to project {project_name} with label(s): {' '.join(labels)}\n"
         )
 
 
