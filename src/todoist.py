@@ -62,11 +62,10 @@ class TodoistPort():
         description = movie.plot
         project_id = self.get_project_id(project_name)
         if labels:
-            label_ids = [self.get_label_id(label) for label in labels]
             self.todoist.add_task(content=content,
                                   description=description,
                                   project_id=project_id,
-                                  label_ids=label_ids)
+                                  labels=labels)
         else:
             self.todoist.add_task(content=content,
                                   description=description,
