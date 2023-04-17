@@ -6,17 +6,17 @@ authors = ["KuSi833 <kabo.milicic@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 IMDBAPI = "^1.0.2"
 requests = "^2.28.1"
-todoist-api-python = "^1.1.1"
+todoist-api-python = "^2.0.2"
 
-[tool.poetry.dev-dependencies]
-mypy = "^0.961"
-flake8 = "^4.0.1"
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.2.0"
+flake8 = "^6.0.0"
 yapf = "^0.32.0"
 toml = "^0.10.2"
-pytest = "^7.1.2"
+pytest = "^7.3.1"
 
 [tool.yapf]
 based_on_style = "google"

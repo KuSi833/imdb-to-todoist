@@ -23,18 +23,29 @@ def add_task(args):
 
     labels = None
     if args.labels:
-        labels = args.labels
+        if args.labels == "-":
+            labels = None
+        else:
+            labels = args.labels
     elif config.default_label_name:
-        labels = config.default_label_name
+        if config.default_label_name == "-":
+            labels = None
+        else:
+            labels = config.default_label_name
 
     imdb = ImdbPort(config.IMDB_API_KEY)
     todoist = TodoistPort(config.TODOIST_API_KEY)
     for media_name in args.media:
         media = imdb.get_media(media_name)
         todoist.make_task(media, labels=labels, project_name=project_name)
-        print(
-            f"\nAdded {media.title} to project {project_name} with label(s): {' '.join(labels)}\n"
-        )
+        if labels:
+            print(
+                f"\nAdded {media.title} to project {project_name} with label(s): {' '.join(labels)}\n"
+            )
+        else:
+            print(
+                f"\nAdded {media.title} to project {project_name} without labels\n"
+            )
 
 
 def configure(args):
